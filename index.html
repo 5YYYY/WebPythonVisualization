@@ -2,6 +2,25 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // 首次进入电脑版：移动设备自动跳转手机版（m.html）；之后不再强制跳转，
+      // 保证移动端可以通过“切换到电脑版”正常停留在 PC 主界面。
+      ;(function () {
+        try {
+          var KEY = 'wpt-entered'
+          var first = !localStorage.getItem(KEY)
+          localStorage.setItem(KEY, '1')
+          if (!first) return
+          var ua = navigator.userAgent || ''
+          var mobile =
+            /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|Windows Phone/i.test(ua) ||
+            (navigator.maxTouchPoints > 1 && /Macintosh/i.test(ua)) // iPadOS 伪装成 Mac
+          if (mobile) location.replace('./m.html' + location.search + location.hash)
+        } catch (e) {
+          /* localStorage 不可用时不做跳转 */
+        }
+      })()
+    </script>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -9,8 +28,8 @@
       content="WebPythonTutor：在浏览器中运行的 Python 代码跟踪与内存可视化教学工具，支持挖空练习与 AI 辅助答疑。"
     />
     <title>WebPythonTutor · Python 可视化教学</title>
-    <script type="module" crossorigin src="./assets/index-BD7EMYUb.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CtfQDL51.css">
+    <script type="module" crossorigin src="./assets/main-CTIlU2SR.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/main-ALlhnT0W.css">
   </head>
   <body>
     <div id="root"></div>
